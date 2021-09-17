@@ -11,6 +11,21 @@ go = session.client("polly")
 with open('data.json', 'r') as file:
     data = json.load(file)
 
+# Append into logs.json the user's message and the command used.
+
+def log(update, context):
+    with open('logs.json', 'r') as file:
+        logs = json.load(file)
+
+    logs.append({
+        "user": f"{update.message.from_user.first_name}",
+        "post": ' '.join(context.args),
+    })
+
+    with open('logs.json', 'w') as file:
+        json.dump(logs, file)
+
+
 def Pocket(text, voice) -> str:
     try:
         response = go.synthesize_speech(
@@ -91,6 +106,7 @@ def tts(update, context):
             ), 
             quote=False
         )
+        log(update, context)
         subprocess.call(data["ciao"], shell=True)
 
 
