@@ -5,7 +5,7 @@ import subprocess
 import json
 import sys
 
-session = Session(profile_name="kenobi")
+session = Session(profile_name="default")
 go = session.client("polly")
 
 with open('data.json', 'r') as file:
@@ -47,7 +47,7 @@ def help(update, context):
         """💻 *Comandos disponibles* 💻
 • _/start - Lista comandos
 • _/tts help - Voces disponibles
-• _/version - Versión del bot y código fuente_
+• _/git - Versión del bot y código fuente_
     """, parse_mode='Markdown')
 
 
@@ -59,7 +59,7 @@ def version(update, context):
     update.message.reply_text(
         "<b>TTS Bot v1.0\n</b>"
         f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>\n"
-        f"<b>Colaboradores<b>: <a href='{kenobiUrl}'>CxrlosKenobi</a>, <a href='{albfrUrl}'>AlbFR</a>"
+        f"<b>Colaboradores</b>: <a href='{kenobiUrl}'>CxrlosKenobi</a>, <a href='{albfrUrl}'>AlbFR</a>"
     , parse_mode="HTML")
 
 def tts(update, context):
