@@ -64,8 +64,9 @@ def version(update, context):
     , parse_mode="HTML")
 
 def tts(update, context):
-    if context.args[0] == 'help':
-        update.message.reply_text('''
+    try:
+        if context.args[0] == 'help':
+            update.message.reply_text('''
 *¡Puedes usar las siguientes voces!*
 
 • /ttsCn - 🇨🇳 Zhiyu
@@ -79,73 +80,110 @@ def tts(update, context):
 *Usage: /<tts> <text>*
 ''', parse_mode='Markdown')
 
-        return
-    
-    update.message.reply_voice(
-        Pocket(
-            text=' '.join(context.args),
-            voice='Ricardo'
-        ), 
-        quote=False
-    )
-    subprocess.call(data["ciao"], shell=True)
+        if context.args[0] == '':
+            update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+            return
+
+        update.message.reply_voice(
+            Pocket(
+                text=' '.join(context.args),
+                voice='Ricardo'
+            ), 
+            quote=False
+        )
+        subprocess.call(data["ciao"], shell=True)
+
+
+    except IndexError:
+        update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+        return    
 
 def ttsCn(update, context):
     try:
+        if context.args[0] == '':
+            update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+            return
+
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Zhiyu'), 
             quote=False)
         subprocess.call(data["ciao"], shell=True)
+
     except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
 
 def ttsArb(update, context):
     try:
+        if context.args[0] == '':
+            update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+            return
+
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Zeina'), 
             quote=False)
         subprocess.call(data["ciao"], shell=True)
+
     except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
 
 def ttsFr(update, context):
-    if context.args[0] == '':
+    try:
+        if context.args[0] == '':
+            update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+            return
+
+        update.message.reply_voice(
+            Pocket(text=' '.join(context.args), voice='Celine'), 
+            quote=False)
+        subprocess.call(data["ciao"], shell=True)
+
+    except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
-
-    update.message.reply_voice(
-        Pocket(text=' '.join(context.args), voice='Celine'), 
-        quote=False)
-    subprocess.call(data["ciao"], shell=True)
 
 def ttsJp(update, context):
-    if context.args[0] == '':
+    try:
+        if context.args[0] == '':
+            update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+            return
+
+        update.message.reply_voice(
+            Pocket(text=' '.join(context.args), voice='Takumi'), 
+            quote=False)
+        subprocess.call(data["ciao"], shell=True)
+
+    except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
-
-    update.message.reply_voice(
-        Pocket(text=' '.join(context.args), voice='Takumi'), 
-        quote=False)
-    subprocess.call(data["ciao"], shell=True)
 
 def ttsMx(update, context):
-    if context.args[0] == '':
+    try:
+        if context.args[0] == '':
+            update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+            return
+
+        update.message.reply_voice(
+            Pocket(text=' '.join(context.args), voice='Mia'), 
+            quote=False)
+        subprocess.call(data["ciao"], shell=True)
+
+    except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
-
-    update.message.reply_voice(
-        Pocket(text=' '.join(context.args), voice='Mia'),
-        quote=False)
-    subprocess.call(data["ciao"], shell=True)
 
 def ttsRu(update, context):
-    if context.args[0] == '':
+    try:
+        if context.args[0] == '':
+            update.message.reply_text('😟 ¡No olvides ingresar el texto!')
+            return
+
+        update.message.reply_voice(
+            Pocket(text=' '.join(context.args), voice='Maxim'), 
+            quote=False)
+        subprocess.call(data["ciao"], shell=True)
+
+    except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
-
-    update.message.reply_voice(
-        Pocket(text=' '.join(context.args), voice='Maxim'),
-        quote=False)
-    subprocess.call(data["ciao"], shell=True)
