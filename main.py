@@ -19,7 +19,7 @@ def main():
 
 
     dp.add_handler(CommandHandler('help', help))
-    dp.add_handler(CommandHandler('version', version))
+    dp.add_handler(CommandHandler('git', version))
 
     dp.add_handler(CommandHandler('tts', tts, pass_args=True))
     dp.add_handler(CommandHandler('ttsCn', ttsCn, pass_args=True))
