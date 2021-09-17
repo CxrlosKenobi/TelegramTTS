@@ -16,8 +16,6 @@ def main():
     updater = Updater(token=data["token"], use_context=True)
     dp = updater.dispatcher
 
-
-
     dp.add_handler(CommandHandler('help', help))
     dp.add_handler(CommandHandler('git', version))
 

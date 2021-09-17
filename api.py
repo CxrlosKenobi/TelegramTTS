@@ -5,7 +5,7 @@ import subprocess
 import json
 import sys
 
-session = Session(profile_name="kenobi")
+session = Session(profile_name="default")
 go = session.client("polly")
 
 with open('data.json', 'r') as file:
@@ -33,9 +33,9 @@ def Pocket(text, voice) -> str:
                 sys.exit(-1)
 
         subprocess.call(data["convert"], shell=True)
-        voicenote = open('speech.ogg', 'rb')
-
-        return voicenote
+        
+        with open('speech.ogg', 'rb') as voicenote:
+            return voicenote
 
     else:
         print("Could not stream audio")
@@ -45,9 +45,9 @@ def Pocket(text, voice) -> str:
 def help(update, context):
     update.message.reply_text(
         """💻 *Comandos disponibles* 💻
-• _/start - Lista comandos
-• _/tts help - Voces disponibles
-• _/version - Versión del bot y código fuente_
+• /start - _Lista comandos_
+• /tts help - _Voces disponibles_
+• /version - _Versión del bot y código fuente_
     """, parse_mode='Markdown')
 
 
@@ -59,7 +59,7 @@ def version(update, context):
     update.message.reply_text(
         "<b>TTS Bot v1.0\n</b>"
         f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>\n"
-        f"<b>Colaboradores<b>: <a href='{kenobiUrl}'>CxrlosKenobi</a>, <a href='{albfrUrl}'>AlbFR</a>"
+        f"<b>Colaboradores: </b><a href='{albfrUrl}'>AlbFR</a>"
     , parse_mode="HTML")
 
 def tts(update, context):
@@ -90,13 +90,14 @@ def tts(update, context):
     subprocess.call(data["ciao"], shell=True)
 
 def ttsCn(update, context):
-    if context.args[0] == '':
+    try:
+        update.message.reply_voice(
+            Pocket(text=' '.join(context.args), voice='Zhiyu'), 
+            quote=False)
+        subprocess.call(data["ciao"], shell=True)
+    except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
-    update.message.reply_voice(
-        Pocket(text=' '.join(context.args), voice='Zhiyu'), 
-        quote=False)
-    subprocess.call(data["ciao"], shell=True)
 
 def ttsArb(update, context):
     if context.args[0] == '':
