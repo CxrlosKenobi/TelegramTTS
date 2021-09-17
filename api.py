@@ -2,6 +2,7 @@ from botocore.exceptions import BotoCoreError, ClientError
 from contextlib import closing
 from boto3 import Session
 import subprocess
+import datetime
 import json
 import sys
 
@@ -10,21 +11,6 @@ go = session.client("polly")
 
 with open('data.json', 'r') as file:
     data = json.load(file)
-
-# Append into logs.json the user's message and the command used.
-
-def log(update, context):
-    with open('logs.json', 'r') as file:
-        logs = json.load(file)
-
-    logs.append({
-        "user": f"{update.message.from_user.first_name}",
-        "post": ' '.join(context.args),
-    })
-
-    with open('logs.json', 'w') as file:
-        json.dump(logs, file)
-
 
 def Pocket(text, voice) -> str:
     try:
@@ -78,6 +64,18 @@ def version(update, context):
         f"<b>Colaboradores: </b><a href='{albfrUrl}'>AlbFR</a>"
     , parse_mode="HTML")
 
+def log(update, context, voice):
+    with open('logs.json', 'r') as file:
+        data = json.load(file)
+    data.append({
+        'user': f"{update.message.from_user.first_name} {update.message.from_user.last_name}",
+        'command': voice,
+        'text': f"{' '.join(context.args)}"
+    })
+    with open('logs.json', 'w') as file:
+        json.dump(data, file, indent=4)
+
+
 def tts(update, context):
     try:
         if context.args[0] == 'help':
@@ -106,7 +104,7 @@ def tts(update, context):
             ), 
             quote=False
         )
-        log(update, context)
+        log(update, context, 'Ricardo')
         subprocess.call(data["ciao"], shell=True)
 
 
@@ -123,6 +121,7 @@ def ttsCn(update, context):
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Zhiyu'), 
             quote=False)
+        log(update, context, 'Zhiyu')
         subprocess.call(data["ciao"], shell=True)
 
     except IndexError:
@@ -138,6 +137,7 @@ def ttsArb(update, context):
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Zeina'), 
             quote=False)
+        log(update, context, 'Zeina')
         subprocess.call(data["ciao"], shell=True)
 
     except IndexError:
@@ -153,6 +153,7 @@ def ttsFr(update, context):
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Celine'), 
             quote=False)
+        log(update, context, 'Celine')
         subprocess.call(data["ciao"], shell=True)
 
     except IndexError:
@@ -168,6 +169,7 @@ def ttsJp(update, context):
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Takumi'), 
             quote=False)
+        log(update, context, 'Takumi')
         subprocess.call(data["ciao"], shell=True)
 
     except IndexError:
@@ -183,6 +185,7 @@ def ttsMx(update, context):
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Mia'), 
             quote=False)
+        log(update, context, 'Mia')
         subprocess.call(data["ciao"], shell=True)
 
     except IndexError:
@@ -198,6 +201,7 @@ def ttsRu(update, context):
         update.message.reply_voice(
             Pocket(text=' '.join(context.args), voice='Maxim'), 
             quote=False)
+        log(update, context, 'Maxim')
         subprocess.call(data["ciao"], shell=True)
 
     except IndexError:
