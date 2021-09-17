@@ -100,14 +100,14 @@ def ttsCn(update, context):
         return
 
 def ttsArb(update, context):
-    if context.args[0] == '':
+    try:
+        update.message.reply_voice(
+            Pocket(text=' '.join(context.args), voice='Zeina'), 
+            quote=False)
+        subprocess.call(data["ciao"], shell=True)
+    except IndexError:
         update.message.reply_text('😟 ¡No olvides ingresar el texto!')
         return
-
-    update.message.reply_voice(
-        Pocket(text=' '.join(context.args), voice='Zeina'), 
-        quote=False)
-    subprocess.call(data["ciao"], shell=True)
 
 def ttsFr(update, context):
     if context.args[0] == '':
