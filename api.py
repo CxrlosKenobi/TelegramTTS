@@ -34,8 +34,9 @@ def Pocket(text, voice) -> str:
 
         subprocess.call(data["convert"], shell=True)
         
-        with open('speech.ogg', 'rb') as voicenote:
-            return voicenote
+        voicenote = open('speech.ogg', 'rb')
+
+        return voicenote
 
     else:
         print("Could not stream audio")
