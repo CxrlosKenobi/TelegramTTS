@@ -33,7 +33,7 @@ def Pocket(text, voice) -> str:
                 print(error)
                 sys.exit(-1)
 
-        subprocess.call(data["convert"], shell=True)
+        subprocess.call(f'{data["convert"]} -y', shell=True)
         
         voicenote = open('speech.ogg', 'rb')
 
@@ -57,7 +57,7 @@ def version(update, context):
     sourceCode = "https://github.com/CxrlosKenobi/TelegramTTS"
     kenobiUrl = 'https://github.com/CxrlosKenobi'
     albfrUrl = 'https://github.com/AlbFR'
-    
+
     update.message.reply_text(
         "<b>TTS Bot v1.0\n</b>"
         f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>\n"
