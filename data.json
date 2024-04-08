@@ -1,0 +1,5 @@
+{
+  "token": "",
+  "convert": "ffmpeg -i speech.mp3 -c:a libopus speech.ogg",
+  "ciao": "rm -rf speech.mp3 speech.ogg"
+}
